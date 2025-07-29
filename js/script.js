@@ -1,4 +1,6 @@
-$(document).ready(function () {
+$(document).ready(
+  
+  function () {
   // Initialize DataTable with AJAX source
   const table = $('#dataTable').DataTable({
     ajax: "actions/fetch_data.php",
@@ -15,6 +17,8 @@ $(document).ready(function () {
       { data: "file_to" },
       { data: "actions" }  // for dropdown buttons
     ]
+
+    
   });
 
   // Handle form submission for adding entry
@@ -39,3 +43,21 @@ $(document).ready(function () {
     });
   });
 });
+
+
+
+// This function gets triggered when the dropdown status changes
+function updateStatus(id, newStatus) {
+  $.ajax({
+    url: 'actions/update_status.php',
+    method: 'POST',
+    data: { id: id, status: newStatus },
+    success: function (response) {
+      // Optionally reload the DataTable to reflect the updated value
+      $('#dataTable').DataTable().ajax.reload(null, false);
+    },
+    error: function () {
+      alert("Failed to update status.");
+    }
+  });
+}

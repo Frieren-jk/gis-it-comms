@@ -38,3 +38,24 @@ body {
   background-color: #f8f9fa;
   overflow-x: auto;
 }
+
+
+/* Sidebar */
+
+
+/* Remove any padding or margin above the image */
+.logo-container {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* Ensure logo sticks to the top */
+.logo-img {
+  width: 120px;           /* You can adjust size as needed */
+  height: auto;
+  display: block;
+  margin: 0 auto;          /* Center horizontally */
+  padding-top: 10px;       /* Optional: some space from the top */
+  object-fit: contain;
+}

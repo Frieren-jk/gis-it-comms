@@ -7,13 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <!-- Bootstrap CSS -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- DataTables CSS -->
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
 </head>
 
@@ -39,7 +37,7 @@
             </button>
 
         </div>
-        <table id="messagesTable" class="table table-striped table-bordered">
+        <table id="dataTable" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Reference #</th>
@@ -56,14 +54,14 @@
                 </tr>
             </thead>
             <tbody>
-                
+
             </tbody>
         </table>
 
-       
+
         <div class="modal fade" id="addEntryModal" tabindex="-1" aria-labelledby="addEntryModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-xl"> 
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addEntryModalLabel">Add New Entry</h5>
@@ -71,10 +69,10 @@
                     </div>
 
                     <div class="modal-body">
-                        <form id="entryForm">
+                        <form id="addEntryForm">
                             <div class="row g-3">
                                 <div class="col-md-2">
-                                    <label class="form-label">ID</label>
+                                    <label class="form-label">Reference No.</label>
                                     <input type="text" class="form-control" name="id">
                                 </div>
                                 <div class="col-md-4">
@@ -114,13 +112,14 @@
                                     <input type="text" class="form-control" name="file_to">
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Add Entry</button>
+                            </div>
                         </form>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" onclick="submitEntry()">Add Entry</button>
-                    </div>
+
                 </div>
             </div>
         </div>

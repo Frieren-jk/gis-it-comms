@@ -1,38 +1,41 @@
 $(document).ready(function () {
-  $('#messagesTable').DataTable({
-    responsive: true,
-    paging: true,
-    searching: true,
-    ordering: true
+  // Initialize DataTable with AJAX source
+  const table = $('#dataTable').DataTable({
+    ajax: "actions/fetch_data.php",
+    columns: [
+      { data: "id" },
+      { data: "particulars" },
+      { data: "sender" },
+      { data: "date_received" },
+      { data: "remarks" },
+      { data: "assign_to" },
+      { data: "date_assign" },
+      { data: "action_taken" },
+      { data: "status" },
+      { data: "file_to" },
+      { data: "actions" }  // for dropdown buttons
+    ]
+  });
+
+  // Handle form submission for adding entry
+  $('#addEntryForm').on('submit', function (e) {
+    e.preventDefault();
+
+    $.ajax({
+      url: 'add_entry.php',
+      method: 'POST',
+      data: $(this).serialize(),
+      success: function (response) {
+        $('#addEntryModal').modal('hide');
+        $('#addEntryForm')[0].reset();
+
+        // Reload DataTable to show new row
+        table.ajax.reload();
+        alert("Entry added!");
+      },
+      error: function () {
+        alert("Failed to add entry.");
+      }
+    });
   });
 });
-
-
-function submitEntry() {
-  const form = document.getElementById("entryForm");
-  const values = Array.from(form.elements)
-    .filter(el => el.tagName === "INPUT")
-    .map(el => el.value);
-
-  const table = document.getElementById("commTable").getElementsByTagName('tbody')[0];
-  const row = table.insertRow();
-
-  values.forEach(value => {
-    const cell = row.insertCell();
-    cell.contentEditable = "true";
-    cell.innerText = value;
-  });
-
-  // Fill remaining cells if less than 10
-  for (let i = values.length; i < 10; i++) {
-    const cell = row.insertCell();
-    cell.contentEditable = "true";
-    cell.innerText = "";
-  }
-
-  // Close modal and reset form
-  const modal = bootstrap.Modal.getInstance(document.getElementById("addEntryModal"));
-  modal.hide();
-  form.reset();
-}
-

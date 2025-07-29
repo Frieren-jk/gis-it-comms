@@ -6,7 +6,7 @@
     <title>Internal Communication System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -35,9 +35,12 @@
             <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addEntryModal">
                 Add Entry
             </button>
+            <button id="toggleActionsBtn" class="btn btn-secondary">
+                Show Actions
+            </button>
 
         </div>
-        <table id="dataTable" class="table table-striped table-bordered">
+        <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
                     <th>Reference #</th>
@@ -61,7 +64,7 @@
 
         <div class="modal fade" id="addEntryModal" tabindex="-1" aria-labelledby="addEntryModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-xl">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addEntryModalLabel">Add New Entry</h5>
@@ -105,7 +108,13 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Status</label>
-                                    <input type="text" class="form-control" name="status">
+                                    <select class="form-select" name="status" required>
+                                        <option value="">Select status</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Completed">Completed</option>
+                                        <option value="Cancelled">Cancelled</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">FILE TO</label>
@@ -133,6 +142,7 @@
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Custom JS -->
     <script src="js/script.js"></script>
 

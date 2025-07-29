@@ -42,7 +42,7 @@
         <table id="messagesTable" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Reference #</th>
                     <th>Particulars</th>
                     <th>Sender</th>
                     <th>Date Received</th>
@@ -56,40 +56,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td contenteditable="true">1</td>
-                    <td contenteditable="true">Ana</td>
-                    <td contenteditable="true">Hello team, update complete!</td>
-                    <td contenteditable="true">2025-07-29 14:00</td>
-                    <td contenteditable="true">1</td>
-                    <td contenteditable="true">Ana</td>
-                    <td contenteditable="true">Hello team, update complete!</td>
-                    <td contenteditable="true">2025-07-29 14:00</td>
-                    <td contenteditable="true">1</td>
-                    <td contenteditable="true">Ana</td>
-                    <td contenteditable="true">Hello team, update complete!</td>
-
-                </tr>
-                <tr>
-                    <td contenteditable="true">1</td>
-                    <td contenteditable="true">Ana</td>
-                    <td contenteditable="true">Hello team, update complete!</td>
-                    <td contenteditable="true">2025-07-29 14:00</td>
-                    <td contenteditable="true">1</td>
-                    <td contenteditable="true">Ana</td>
-                    <td contenteditable="true">Hello team, update complete!</td>
-                    <td contenteditable="true">2025-07-29 14:00</td>
-                    <td contenteditable="true">1</td>
-                    <td contenteditable="true">Ana</td>
-                    <td contenteditable="true">Hello team, update complete!</td>
-
+                
             </tbody>
         </table>
 
-        <!-- Add Entry Modal -->
+       
         <div class="modal fade" id="addEntryModal" tabindex="-1" aria-labelledby="addEntryModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-xl"> <!-- modal-xl for wider form -->
+            <div class="modal-dialog modal-xl"> 
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addEntryModalLabel">Add New Entry</h5>

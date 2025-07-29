@@ -22,7 +22,7 @@ $(document).ready(function () {
     e.preventDefault();
 
     $.ajax({
-      url: 'add_entry.php',
+      url: 'actions/add_entry.php',
       method: 'POST',
       data: $(this).serialize(),
       success: function (response) {

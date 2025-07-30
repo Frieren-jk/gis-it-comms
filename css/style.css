@@ -40,23 +40,23 @@ body {
 }
 
 
-/* Sidebar */
 
 
-/* Remove any padding or margin above the image */
+
+
 .logo-container {
   margin: 0;
   padding: 0;
   text-align: center;
 }
 
-/* Ensure logo sticks to the top */
+
 .logo-img {
-  width: 120px;           /* You can adjust size as needed */
+  width: 120px;           
   height: auto;
   display: block;
-  margin: 0 auto;          /* Center horizontally */
-  padding-top: 10px;       /* Optional: some space from the top */
+  margin: 0 auto;          
+  padding-top: 10px;      
   object-fit: contain;
 }
 

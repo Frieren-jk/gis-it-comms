@@ -16,7 +16,7 @@ try {
     $status = $_POST['status'];
     $file_to = $_POST['file_to'];
 
-    $stmt = $conn->prepare("INSERT INTO comms_records
+    $stmt = $conn->prepare("INSERT INTO records
         (id, particulars, sender, date_received, remarks, assign_to, date_assign, action_taken, status, file_to) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 

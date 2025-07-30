@@ -75,7 +75,7 @@ $common_percent = get_percent($common, $total);
         <div class="stat-box">
             <div class="label">COMPLETE</div>
             <div class="value-box">
-                <div class="circle-box complete"
+                <div class="circle-box complete" id="complete-circle"
                     style="background-image: conic-gradient(#28a745 <?php echo $complete_percent; ?>%, #444 <?php echo $complete_percent; ?>%);">
                     <div
                         style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
@@ -90,7 +90,8 @@ $common_percent = get_percent($common, $total);
             <div class="label">PENDING</div>
             <div class="value-box">
                 <div class="sub-label">Priority</div>
-                <div class="circle-box pending priority"
+                <!-- PRIORITY CIRCLE -->
+                <div class="circle-box pending priority" id="priority-circle"
                     style="background-image: conic-gradient(#ffc107 <?php echo $priority_percent; ?>%, #444 <?php echo $priority_percent; ?>%);">
                     <div
                         style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
@@ -100,7 +101,8 @@ $common_percent = get_percent($common, $total);
                 </div>
 
                 <div class="sub-label">Common</div>
-                <div class="circle-box pending common"
+                <!-- COMMON CIRCLE -->
+                <div class="circle-box pending common" id="common-circle"
                     style="background-image: conic-gradient(#dc3545 <?php echo $common_percent; ?>%, #444 <?php echo $common_percent; ?>%);">
                     <div
                         style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">

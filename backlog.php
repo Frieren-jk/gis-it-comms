@@ -21,16 +21,7 @@
 
 <body>
     <!-- Sidebar -->
-    <div class="sidebar d-flex flex-column">
-        <div class="logo-container">
-            <img src="img/logo.png" alt="Logo" class="logo-img">
-            <div class="logo-label">GIS-IT COMMS</div>
-        </div>
-        <nav class="mt-4">
-            <a href="index.php" class="nav-link">Records</a>
-            <a href="backlog.php" class="nav-link">Backlogs</a>
-        </nav>
-    </div>
+    <?php include 'sidebar.php'; ?>
 
     <!-- Main content -->
     <div class="main-content">

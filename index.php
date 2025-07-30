@@ -18,18 +18,7 @@
 <body>
 
     <!-- Sidebar -->
-    <div class="sidebar d-flex flex-column">
-        <div class="logo-container">
-            <img src="img/logo.png" alt="Logo" class="logo-img">
-            <div class="logo-label">GIS-IT COMMS</div>
-        </div>
-
-        <!-- Navigation Menu -->
-        <nav class="mt-4">
-            <a href="index.php" class="nav-link">Records</a>
-            <a href="backlog.php" class="nav-link ">Backlogs</a>
-        </nav>
-    </div>
+    <?php include 'sidebar.php'; ?>
 
     <!-- Main content -->
     <div class="main-content">
@@ -117,12 +106,12 @@
                                     <label class="form-label">Status</label>
                                     <select class="form-select" name="status" required id="status">
                                         <option value="">Select status</option>
-                            
+
                                         <option value="Pending-Priority">Pending-Priority</option>
                                         <option value="Pending-Common">Pending-Common</option>
                                         <option value="In Progress">In Progress</option>
                                         <option value="Take Note">Take Note</option>
-                                
+
                                         <option value="Completed-Priority">Completed-Priority</option>
                                         <option value="Completed-Common">Completed-Common</option>
                                         <option value="Cancelled">Cancelled</option>

@@ -6,14 +6,14 @@ let actionsVisible = true;
 $(document).ready(function () {
 
   const statusMap = {
-  "pending_priority": "Pending - Priority",
-  "pending_common": "Pending - Common",
-  "in_progress": "In Progress",
-  "take_note": "Take Note",
-  "completed_priority": "Completed - Priority",
-  "completed_common": "Completed - Common",
-  "cancelled": "Cancelled"
-};
+    "pending_priority": "Pending - Priority",
+    "pending_common": "Pending - Common",
+    "in_progress": "In Progress",
+    "take_note": "Take Note",
+    "completed_priority": "Completed - Priority",
+    "completed_common": "Completed - Common",
+    "cancelled": "Cancelled"
+  };
 
 
   table = $('#dataTable').DataTable({
@@ -36,7 +36,7 @@ $(document).ready(function () {
             return row.status_raw;
           }
 
-         return statusMap[data] || data;
+          return statusMap[data] || data;
         }
       },
       { data: "file_to" },
@@ -136,9 +136,7 @@ $(document).ready(function () {
 
   $('#toggleActionsBtn').on('click', function () {
     actionsVisible = !actionsVisible;
-
-
-
+    
     table.column(10).visible(actionsVisible, false);
     backlogTable.column(4).visible(actionsVisible, false);
 
@@ -351,3 +349,5 @@ $('#addEntryModal').on('hidden.bs.modal', function () {
   $('#dateAssign').val('');
   $('#fileToInput').val('');
 });
+
+/* Circles */

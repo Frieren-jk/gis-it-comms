@@ -1,7 +1,7 @@
 
 let table;
 let backlogTable
-let actionsVisible = true;
+let actionsVisible = false;
 
 $(document).ready(function () {
 
@@ -40,7 +40,7 @@ $(document).ready(function () {
         }
       },
       { data: "file_to" },
-      { data: "actions" }
+      { data: "actions" ,visible: false }
     ]
 
 
@@ -55,10 +55,10 @@ $(document).ready(function () {
       { data: "sender" },
 
       {
-        data: "action",
+        data: "action", 
         render: function (data, type, row) {
           return `<button class="btn btn-sm btn-primary">View</button>`;
-        }
+        },  visible: false
       }
     ]
   });
@@ -233,8 +233,8 @@ $(document).ready(function () {
 
       // Use ID selectors to target specific boxes
       $('#complete-circle').css('background-image', `conic-gradient(#28a745 ${data.complete_percent}%, #444 ${data.complete_percent}%)`);
-      $('#priority-circle').css('background-image', `conic-gradient(#ffc107 ${data.priority_percent}%, #444 ${data.priority_percent}%)`);
-      $('#common-circle').css('background-image', `conic-gradient(#dc3545 ${data.common_percent}%, #444 ${data.common_percent}%)`);
+      $('#priority-circle').css('background-image', `conic-gradient(#dc3545 ${data.priority_percent}%, #444 ${data.priority_percent}%)`);
+      $('#common-circle').css('background-image', `conic-gradient(#ffc107 ${data.common_percent}%, #444 ${data.common_percent}%)`);
     },
     error: function (xhr, status, err) {
       console.error("Sidebar update failed:", err);

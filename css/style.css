@@ -173,18 +173,6 @@ body {
   background-repeat: no-repeat;
 }
 
-.circle-box.complete {
-  border-color: #28a745;
-}
-
-.circle-box.pending.priority {
-  border-color: #ffc107;
-}
-
-.circle-box.pending.common {
-  border-color: #dc3545;
-}
-
 .circle-value {
   font-size: 24px;
   font-weight: bold;

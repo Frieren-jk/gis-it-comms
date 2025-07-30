@@ -113,7 +113,7 @@ $(document).ready(function () {
         $('#addEntryForm')[0].reset();
         table.ajax.reload();
 
-        // Reset mode
+   
         $('#addEntryForm').removeData('mode').removeData('update-id');
       },
       error: function () {

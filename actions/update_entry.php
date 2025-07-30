@@ -1,16 +1,15 @@
 <?php
 require '../connection.php'; // adjust path as needed
 
-// Check if required POST fields are present
 if (!isset($_POST['id'])) {
     http_response_code(400);
     echo json_encode(['error' => 'Missing ID']);
     exit;
 }
 
-$id = intval($_POST['id']); // Sanitize ID
+$id = $_POST['id']; // No need to cast to int since it's a string
 
-// Get other fields (sanitize as needed)
+// Get other fields
 $particulars    = $_POST['particulars'] ?? '';
 $sender         = $_POST['sender'] ?? '';
 $date_received  = $_POST['date_received'] ?? null;
@@ -21,7 +20,7 @@ $action_taken   = $_POST['action_taken'] ?? '';
 $status         = $_POST['status'] ?? '';
 $file_to        = $_POST['file_to'] ?? '';
 
-// Prepare and execute update query
+// Prepare update query
 $stmt = $conn->prepare("
     UPDATE records 
     SET 
@@ -43,8 +42,9 @@ if (!$stmt) {
     exit;
 }
 
+// All 10 parameters are strings
 $stmt->bind_param(
-    "sssssssssi",
+    "ssssssssss",
     $particulars,
     $sender,
     $date_received,

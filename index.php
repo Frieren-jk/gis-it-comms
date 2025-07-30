@@ -6,7 +6,7 @@
     <title>Internal Communication System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -24,8 +24,11 @@
             <div class="logo-label">GIS-IT COMMS</div>
         </div>
 
-
-
+        <!-- Navigation Menu -->
+        <nav class="mt-4">
+            <a href="index.php" class="nav-link">Records</a>
+            <a href="backlog.php" class="nav-link ">Backlogs</a>
+        </nav>
     </div>
 
     <!-- Main content -->
@@ -76,54 +79,69 @@
                             <div class="row g-3">
                                 <div class="col-md-2">
                                     <label class="form-label">Reference No.</label>
-                                    <input type="text" class="form-control" name="id">
+                                    <div class="position-relative">
+                                        <input type="text" class="form-control" name="id" id="refInput"
+                                            autocomplete="off">
+                                        <div id="refDropdown" class="dropdown-menu show"></div>
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Particulars</label>
-                                    <input type="text" class="form-control" name="particulars">
+                                    <input type="text" class="form-control" name="particulars" id="particularsInput">
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label">Sender</label>
-                                    <input type="text" class="form-control" name="sender">
+                                    <input type="text" class="form-control" name="sender" id="senderInput">
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label">Date Received</label>
-                                    <input type="date" class="form-control" name="date_received">
+                                    <input type="date" class="form-control" name="date_received" id="dateReceived">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Remarks / Instruction</label>
-                                    <input type="text" class="form-control" name="remarks">
+                                    <input type="text" class="form-control" name="remarks" id="remarks">
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label">Assign To</label>
-                                    <input type="text" class="form-control" name="assign_to">
+                                    <input type="text" class="form-control" name="assign_to" id="assignToInput">
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label">Date Assign</label>
-                                    <input type="date" class="form-control" name="date_assign">
+                                    <input type="date" class="form-control" name="date_assign" id="dateAssign">
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Action Taken</label>
-                                    <input type="text" class="form-control" name="action_taken">
+                                    <input type="text" class="form-control" name="action_taken" id="actionTaken">
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Status</label>
-                                    <select class="form-select" name="status" required>
+                                    <select class="form-select" name="status" required id="status">
                                         <option value="">Select status</option>
-                                        <option value="Pending">Pending</option>
+                            
+                                        <option value="Pending-Priority">Pending-Priority</option>
+                                        <option value="Pending-Common">Pending-Common</option>
                                         <option value="In Progress">In Progress</option>
-                                        <option value="Completed">Completed</option>
+                                        <option value="Take Note">Take Note</option>
+                                
+                                        <option value="Completed-Priority">Completed-Priority</option>
+                                        <option value="Completed-Common">Completed-Common</option>
                                         <option value="Cancelled">Cancelled</option>
                                     </select>
+
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">FILE TO</label>
-                                    <input type="text" class="form-control" name="file_to">
+                                    <input type="text" class="form-control" name="file_to" id="fileToInput">
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+
                                 <button type="submit" class="btn btn-primary">Add Entry</button>
+
+                                <button type="button" class="btn btn-success d-none" id="updateEntryBtn">Update
+                                    Entry</button>
                             </div>
                         </form>
                     </div>

@@ -31,6 +31,7 @@ if ($result && $result->num_rows > 0) {
         $row['status_raw'] = $status_raw;
 
         $row['status'] = '
+     
         <div class="dropdown">
          <span class="d-none">' . htmlspecialchars($status) . '</span>
         <button class="btn btn-sm dropdown-toggle ' . $badge_class . '" type="button" data-bs-toggle="dropdown" aria-expanded="false">

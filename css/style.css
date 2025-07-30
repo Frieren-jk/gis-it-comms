@@ -1,25 +1,38 @@
 body {
   min-height: 100vh;
-  display: flex;
   margin: 0;
+  padding-left: 250px; /* Reserve space for fixed sidebar */
 }
 
 .sidebar {
   width: 250px;
   background-color: #185474;
   color: white;
-  flex-shrink: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  padding: 1rem;
+  overflow-y: auto;
 }
 
 .sidebar .nav-link {
   color: #ccc;
   padding: 10px;
   border-radius: 5px;
+  display: block;
+  text-decoration: none;
 }
 
 .sidebar .nav-link:hover {
   background-color: #495057;
   color: white;
+}
+
+.sidebar .nav-link.active {
+  background-color: #0f3c52;
+  color: #fff;
+  font-weight: bold;
 }
 
 .logo-placeholder {
@@ -33,15 +46,10 @@ body {
 }
 
 .main-content {
-  flex-grow: 1;
   padding: 2rem;
-  background-color: #f8f9fa;
+
   overflow-x: auto;
 }
-
-
-
-
 
 
 .logo-container {
@@ -90,4 +98,19 @@ body {
 
 .colored-toast .swal2-html-container {
   color: white;
+}
+
+
+#refDropdown {
+  min-width: 500px !important;      /* Wider than input */
+  max-height: 200px;                /* Height limit */
+  overflow-y: auto;                 /* Enable vertical scroll */
+  overflow-x: hidden;               /* Hide horizontal scroll */
+  white-space: normal;              /* Allow text wrapping */
+  word-break: break-word;
+  z-index: 1050;
+}
+.position-relative .dropdown-menu {
+  left: 0 !important;
+  right: auto !important;
 }

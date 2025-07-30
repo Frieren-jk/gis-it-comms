@@ -59,8 +59,8 @@ $common_percent = get_percent($common, $total);
 
     <!-- Navigation Menu -->
     <nav class="mt-4">
-        <a href="index.php" class="nav-link">Records</a>
-        <a href="backlog.php" class="nav-link">Backlogs</a>
+        <a href="index.php" class="nav-link">Communications</a>
+        <a href="backlog.php" class="nav-link">Records</a>
     </nav>
 
     <hr style="border: none; height: 2px; background-color: #ccc;">

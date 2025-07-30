@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Backlogs - GIS-IT COMMS</title>
+    <title>Records - GIS-IT COMMS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- SweetAlert -->
@@ -25,7 +25,7 @@
 
     <!-- Main content -->
     <div class="main-content">
-        <h2 class="mb-4">Backlogs</h2>
+        <h2 class="mb-4">Records</h2>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBacklogModal">

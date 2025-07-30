@@ -1,7 +1,7 @@
 
 let table;
 let backlogTable
-let actionsVisible = true;
+let actionsVisible = false;
 
 $(document).ready(function () {
 
@@ -40,7 +40,7 @@ $(document).ready(function () {
         }
       },
       { data: "file_to" },
-      { data: "actions" }
+      { data: "actions", visible: false }
     ]
 
 
@@ -58,17 +58,18 @@ $(document).ready(function () {
         data: "action",
         render: function (data, type, row) {
           return `<button class="btn btn-sm btn-primary">View</button>`;
-        }
+        }, visible: false
       }
     ]
   });
 
 
 
+
   $('#addEntryForm').on('submit', function (e) {
     e.preventDefault();
 
-    const mode = $(this).data('mode') || 'add'; // default to add
+    const mode = $(this).data('mode') || 'add'; 
     const updateId = $(this).data('update-id');
 
     const id = $('#refInput').val().trim();
@@ -76,6 +77,23 @@ $(document).ready(function () {
       Swal.fire({
         icon: 'warning',
         title: 'Missing Reference No.',
+        toast: true,
+        position: 'top-end',
+        iconColor: 'white',
+        customClass: { popup: 'colored-toast' },
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      });
+      return;
+    }
+
+    const status = $('#status').val();
+    if (!status || status.trim() === '') {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Missing Status',
+        text: 'Please select a status from the dropdown.',
         toast: true,
         position: 'top-end',
         iconColor: 'white',
@@ -96,25 +114,63 @@ $(document).ready(function () {
       url,
       method: 'POST',
       data: formData,
-      success: function () {
-        Swal.fire({
-          icon: 'success',
-          title: successMessage,
-          toast: true,
-          position: 'top-end',
-          timer: 2000,
-          timerProgressBar: true,
-          showConfirmButton: false,
-          iconColor: 'white',
-          customClass: { popup: 'colored-toast' }
-        });
+      success: function (response) {
+        if (typeof response === 'string') {
+          try {
+            response = JSON.parse(response);
+          } catch (e) {
+            console.error('Invalid JSON response', response);
+            Swal.fire({
+              title: 'Error!',
+              text: 'Unexpected response from server.',
+              icon: 'error',
+              toast: true,
+              position: 'top-end',
+              timer: 2500,
+              showConfirmButton: false,
+              timerProgressBar: true,
+              customClass: { popup: 'colored-toast' }
+            });
+            return;
+          }
+        }
 
-        $('#addEntryModal').modal('hide');
-        $('#addEntryForm')[0].reset();
-        table.ajax.reload();
+        if (response.success) {
+          Swal.fire({
+            icon: 'success',
+            title: successMessage,
+            toast: true,
+            position: 'top-end',
+            timer: 2000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            iconColor: 'white',
+            customClass: { popup: 'colored-toast' }
+          });
 
-        // Reset mode
-        $('#addEntryForm').removeData('mode').removeData('update-id');
+          $('#addEntryModal').modal('hide');
+          $('#addEntryForm')[0].reset();
+          table.ajax.reload();
+          $('#addEntryForm').removeData('mode').removeData('update-id');
+        } else {
+          let errorMessage = 'Something went wrong ';
+          if (response.code === 1062) {
+            errorMessage = 'Reference No. already exists!';
+            $('#refInput').addClass('is-invalid');
+          }
+
+          Swal.fire({
+            title: 'Error!',
+            text: errorMessage,
+            icon: 'error',
+            toast: true,
+            position: 'top-end',
+            timer: 2500,
+            showConfirmButton: false,
+            timerProgressBar: true,
+            customClass: { popup: 'colored-toast' }
+          });
+        }
       },
       error: function () {
         Swal.fire({
@@ -151,6 +207,8 @@ $(document).ready(function () {
   });
 
 
+
+  // Dropdown search records
   const $refInput = $('#refInput');
   const $dropdown = $('#refDropdown');
 
@@ -217,30 +275,32 @@ $(document).ready(function () {
     }
   });
 
- function updateSidebarStats() {
-  $.ajax({
-    url: 'actions/get_stats.php',
-    method: 'GET',
-    dataType: 'json',
-    success: function (data) {
-      $('#total-comms').text(data.total);
-      $('#complete-val').text(data.completed);
-      $('#complete-ratio').text(`${data.completed}/${data.total}`);
-      $('#priority-val').text(data.priority);
-      $('#priority-ratio').text(`${data.priority}/${data.total}`);
-      $('#common-val').text(data.common);
-      $('#common-ratio').text(`${data.common}/${data.total}`);
+  //Update Sidebar Statistics Donout
 
-      // Use ID selectors to target specific boxes
-      $('#complete-circle').css('background-image', `conic-gradient(#28a745 ${data.complete_percent}%, #444 ${data.complete_percent}%)`);
-      $('#priority-circle').css('background-image', `conic-gradient(#ffc107 ${data.priority_percent}%, #444 ${data.priority_percent}%)`);
-      $('#common-circle').css('background-image', `conic-gradient(#dc3545 ${data.common_percent}%, #444 ${data.common_percent}%)`);
-    },
-    error: function (xhr, status, err) {
-      console.error("Sidebar update failed:", err);
-    }
-  });
-}
+  function updateSidebarStats() {
+    $.ajax({
+      url: 'actions/get_stats.php',
+      method: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        $('#total-comms').text(data.total);
+        $('#complete-val').text(data.completed);
+        $('#complete-ratio').text(`${data.completed}/${data.total}`);
+        $('#priority-val').text(data.priority);
+        $('#priority-ratio').text(`${data.priority}/${data.total}`);
+        $('#common-val').text(data.common);
+        $('#common-ratio').text(`${data.common}/${data.total}`);
+
+        // Use ID selectors to target specific boxes
+        $('#complete-circle').css('background-image', `conic-gradient(#28a745 ${data.complete_percent}%, #444 ${data.complete_percent}%)`);
+        $('#priority-circle').css('background-image', `conic-gradient(#dc3545 ${data.priority_percent}%, #444 ${data.priority_percent}%)`);
+        $('#common-circle').css('background-image', `conic-gradient(#ffc107 ${data.common_percent}%, #444 ${data.common_percent}%)`);
+      },
+      error: function (xhr, status, err) {
+        console.error("Sidebar update failed:", err);
+      }
+    });
+  }
 
 
   // Call on load and every 5 seconds
@@ -269,11 +329,27 @@ function updateStatus(id, newStatus) {
 function selectAction(el, id, action) {
   const group = $(el).closest('.btn-group');
   const mainBtn = group.find('.action-main-btn');
+  const splitBtn = group.find('.dropdown-toggle');
 
-
+  // Change button text and data-action
   mainBtn.text(action);
   mainBtn.data('action', action);
+
+  // Reset button colors
+  mainBtn.removeClass('btn-success btn-danger btn-secondary');
+  splitBtn.removeClass('btn-success btn-danger btn-secondary');
+
+  // Apply color based on action
+  if (action === 'Delete') {
+    mainBtn.addClass('btn-danger');
+    splitBtn.addClass('btn-danger');
+  } else {
+    mainBtn.addClass('btn-success');
+    splitBtn.addClass('btn-success');
+  }
 }
+
+
 
 
 $(document).on('click', '.action-main-btn', function () {
@@ -295,7 +371,8 @@ $(document).on('click', '.action-main-btn', function () {
     $('#assignToInput').val(rowData.assign_to);
     $('#dateAssign').val(rowData.date_assign);
     $('#actionTaken').val(rowData.action_taken);
-    $('#status').val(rowData.status);
+    $('#status').val(rowData.status_raw?.trim());
+
     $('#fileToInput').val(rowData.file_to);
 
     // Store mode info (e.g., update vs add)
@@ -379,5 +456,6 @@ $('#addEntryModal').on('hidden.bs.modal', function () {
   $('#fileToInput').val('');
 });
 
-/* Circles */
+
+
 

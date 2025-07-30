@@ -102,17 +102,24 @@ body {
 
 
 #refDropdown {
-  min-width: 500px !important;      /* Wider than input */
-  max-height: 200px;                /* Height limit */
-  overflow-y: auto;                 /* Enable vertical scroll */
-  overflow-x: hidden;               /* Hide horizontal scroll */
-  white-space: normal;              /* Allow text wrapping */
-  word-break: break-word;
+  min-width: 500px !important;
+  max-width: 700%;                 /* Allow up to container/modal width */
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: auto;                /* ✅ allow horizontal scroll */
   z-index: 1050;
+  background-color: white;
+  position: absolute;             /* Ensure positioning if needed */
+  border: 1px solid #ccc;
 }
-.position-relative .dropdown-menu {
-  left: 0 !important;
-  right: auto !important;
+
+/* Optional: Allow full width inside, but avoid wrapping */
+#refDropdown .dropdown-item {
+  display: inline-block;          /* ✅ treat items as inline blocks */
+  min-width: 100%;                /* stretch within dropdown */
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+  white-space: nowrap;            /* prevent wrap */
 }
 
 /* Circles */
@@ -171,18 +178,6 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
-
-.circle-box.complete {
-  border-color: #28a745;
-}
-
-.circle-box.pending.priority {
-  border-color: #ffc107;
-}
-
-.circle-box.pending.common {
-  border-color: #dc3545;
 }
 
 .circle-value {

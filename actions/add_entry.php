@@ -16,7 +16,7 @@ try {
     $status = $_POST['status'];
     $file_to = $_POST['file_to'];
 
-    $stmt = $conn->prepare("INSERT INTO records
+    $stmt = $conn->prepare("INSERT INTO communication
         (id, particulars, sender, date_received, remarks, assign_to, date_assign, action_taken, status, file_to) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -25,7 +25,15 @@ try {
     if ($stmt->execute()) {
         echo json_encode(["success" => true]);
     } else {
-        echo json_encode(["success" => false, "error" => $stmt->error]);
+        if ($conn->errno === 1062) {
+            echo json_encode([
+                "success" => false,
+                "error" => "Duplicate entry",
+                "code" => 1062
+            ]);
+        } else {
+            echo json_encode(["success" => false, "error" => $stmt->error]);
+        }
     }
 
     $stmt->close();

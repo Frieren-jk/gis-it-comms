@@ -24,7 +24,7 @@
 
     <!-- Main content -->
     <div class="main-content">
-        <h2 class="mb-4">Internal and External Communication Data</h2>
+        <h2 class="mb-4">Communication Data</h2>
         <div class="d-flex justify-content-between align-items-center mb-3">
             <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addEntryModal">
                 Add Entry
@@ -37,16 +37,16 @@
         <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
-                    <th>Reference #</th>
+                    <th>ReferenceNo.</th>
                     <th>Particulars</th>
                     <th>Sender</th>
-                    <th>Date Received</th>
-                    <th>Remarks / Instruction</th>
-                    <th>Assign To</th>
-                    <th>Date Assign</th>
-                    <th>Action Taken</th>
+                    <th>DateReceived</th>
+                    <th>Remarks</th>
+                    <th>AssignTo</th>
+                    <th>DateAssign</th>
+                    <th>ActionTaken</th>
                     <th>Status</th>
-                    <th>File To</th>
+                    <th>File-To</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -106,12 +106,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Status</label>
-                                    <select class="form-select" name="status" required id="status">
+                                    <select class="form-select" name="status" id="status">
                                         <option value="">Select status</option>
 
                                         <option value="Pending-Priority">Pending-Priority</option>
                                         <option value="Pending-Common">Pending-Common</option>
-                                        <option value="In Progress">In Progress</option>
                                         <option value="Take Note">Take Note</option>
 
                                         <option value="Completed-Priority">Completed-Priority</option>

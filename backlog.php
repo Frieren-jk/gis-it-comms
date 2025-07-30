@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Backlogs - GIS-IT COMMS</title>
+    <title>Records - GIS-IT COMMS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- SweetAlert -->
@@ -21,20 +21,11 @@
 
 <body>
     <!-- Sidebar -->
-    <div class="sidebar d-flex flex-column">
-        <div class="logo-container">
-            <img src="img/logo.png" alt="Logo" class="logo-img">
-            <div class="logo-label">GIS-IT COMMS</div>
-        </div>
-        <nav class="mt-4">
-            <a href="index.php" class="nav-link">Records</a>
-            <a href="backlog.php" class="nav-link">Backlogs</a>
-        </nav>
-    </div>
+    <?php include 'sidebar.php'; ?>
 
     <!-- Main content -->
     <div class="main-content">
-        <h2 class="mb-4">Backlogs</h2>
+        <h2 class="mb-4">Records</h2>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBacklogModal">

@@ -6,14 +6,14 @@ let actionsVisible = true;
 $(document).ready(function () {
 
   const statusMap = {
-  "pending_priority": "Pending - Priority",
-  "pending_common": "Pending - Common",
-  "in_progress": "In Progress",
-  "take_note": "Take Note",
-  "completed_priority": "Completed - Priority",
-  "completed_common": "Completed - Common",
-  "cancelled": "Cancelled"
-};
+    "pending_priority": "Pending - Priority",
+    "pending_common": "Pending - Common",
+    "in_progress": "In Progress",
+    "take_note": "Take Note",
+    "completed_priority": "Completed - Priority",
+    "completed_common": "Completed - Common",
+    "cancelled": "Cancelled"
+  };
 
 
   table = $('#dataTable').DataTable({
@@ -36,7 +36,7 @@ $(document).ready(function () {
             return row.status_raw;
           }
 
-         return statusMap[data] || data;
+          return statusMap[data] || data;
         }
       },
       { data: "file_to" },
@@ -137,8 +137,6 @@ $(document).ready(function () {
   $('#toggleActionsBtn').on('click', function () {
     actionsVisible = !actionsVisible;
 
-
-
     table.column(10).visible(actionsVisible, false);
     backlogTable.column(4).visible(actionsVisible, false);
 
@@ -219,6 +217,35 @@ $(document).ready(function () {
     }
   });
 
+ function updateSidebarStats() {
+  $.ajax({
+    url: 'actions/get_stats.php',
+    method: 'GET',
+    dataType: 'json',
+    success: function (data) {
+      $('#total-comms').text(data.total);
+      $('#complete-val').text(data.completed);
+      $('#complete-ratio').text(`${data.completed}/${data.total}`);
+      $('#priority-val').text(data.priority);
+      $('#priority-ratio').text(`${data.priority}/${data.total}`);
+      $('#common-val').text(data.common);
+      $('#common-ratio').text(`${data.common}/${data.total}`);
+
+      // Use ID selectors to target specific boxes
+      $('#complete-circle').css('background-image', `conic-gradient(#28a745 ${data.complete_percent}%, #444 ${data.complete_percent}%)`);
+      $('#priority-circle').css('background-image', `conic-gradient(#ffc107 ${data.priority_percent}%, #444 ${data.priority_percent}%)`);
+      $('#common-circle').css('background-image', `conic-gradient(#dc3545 ${data.common_percent}%, #444 ${data.common_percent}%)`);
+    },
+    error: function (xhr, status, err) {
+      console.error("Sidebar update failed:", err);
+    }
+  });
+}
+
+
+  // Call on load and every 5 seconds
+  updateSidebarStats();
+  setInterval(updateSidebarStats, 100);
 
   //end 
 });
@@ -351,3 +378,6 @@ $('#addEntryModal').on('hidden.bs.modal', function () {
   $('#dateAssign').val('');
   $('#fileToInput').val('');
 });
+
+/* Circles */
+

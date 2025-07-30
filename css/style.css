@@ -114,3 +114,88 @@ body {
   left: 0 !important;
   right: auto !important;
 }
+
+/* Circles */
+
+#sidebar-comm-stats {
+  width: 160px;
+  border-radius: 10px;
+  padding: 15px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: Arial;
+  color: white;
+}
+
+.stat-box {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.sub-label {
+  font-size: 12px;
+  margin-top: 4px;
+  color: #ccc;
+}
+
+.value-box {
+  background-color: #0f3c52;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.circle-box {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
+  background-color: #222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  font-size: 20px;
+  font-weight: bold;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.circle-box.complete {
+  border-color: #28a745;
+}
+
+.circle-box.pending.priority {
+  border-color: #ffc107;
+}
+
+.circle-box.pending.common {
+  border-color: #dc3545;
+}
+
+.circle-value {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.circle-ratio {
+  font-size: 13px;
+  color: #ccc;
+}
+
+.circle-value, .circle-ratio, .sub-label {
+  position: relative;
+  z-index: 2;
+}

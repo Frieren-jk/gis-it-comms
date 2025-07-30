@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
     $status = $_POST['status'];
 
-    $stmt = $conn->prepare("UPDATE records SET status = ? WHERE id = ?");
+    $stmt = $conn->prepare("UPDATE communication SET status = ? WHERE id = ?");
     $stmt->bind_param("ss", $status, $id);
 
     if ($stmt->execute()) {

@@ -22,7 +22,7 @@ $file_to        = $_POST['file_to'] ?? '';
 
 // Prepare update query
 $stmt = $conn->prepare("
-    UPDATE records 
+    UPDATE communication 
     SET 
         particulars = ?, 
         sender = ?, 

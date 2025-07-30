@@ -8,7 +8,7 @@ if (empty($q)) {
     exit;
 }
 
-$stmt = $conn->prepare("SELECT ref_no, particulars, sender FROM backlog WHERE ref_no LIKE CONCAT('%', ?, '%') LIMIT 10");
+$stmt = $conn->prepare("SELECT ref_no, particulars, sender FROM records WHERE ref_no LIKE CONCAT('%', ?, '%') LIMIT 10");
 $stmt->bind_param("s", $q);
 $stmt->execute();
 $result = $stmt->get_result();

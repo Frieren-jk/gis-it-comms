@@ -39,8 +39,8 @@
         <table id="backlogTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
-                    <th>Action ID</th>
-                    <th>Reference #</th>
+                    <th>ID</th>
+                    <th>ReferenceNo.</th>
                     <th>Particulars</th>
                     <th>Sender</th>
                     <th>Action</th>

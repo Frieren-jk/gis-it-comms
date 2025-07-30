@@ -4,7 +4,7 @@ require '../connection.php';
 if (isset($_POST['id'])) {
     $id = trim($_POST['id']);
 
-    $stmt = $conn->prepare("DELETE FROM records WHERE id = ?");
+    $stmt = $conn->prepare("DELETE FROM communication WHERE id = ?");
     if (!$stmt) {
         http_response_code(500);
         echo json_encode(['success' => false, 'error' => $conn->error]);

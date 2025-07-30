@@ -11,7 +11,7 @@ $status_counts = [
     'Cancelled' => 0,
 ];
 
-$sql = "SELECT status, COUNT(*) as count FROM records GROUP BY status";
+$sql = "SELECT status, COUNT(*) as count FROM communication GROUP BY status";
 $result = $conn->query($sql);
 
 if ($result && $result->num_rows > 0) {

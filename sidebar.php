@@ -9,7 +9,7 @@ $priority = 0;
 $common = 0;
 
 // Query total number of records
-$sql = "SELECT status, COUNT(*) as count FROM records GROUP BY status";
+$sql = "SELECT status, COUNT(*) as count FROM communication GROUP BY status";
 $result = $conn->query($sql);
 
 // Initialize status-specific counts
@@ -60,7 +60,7 @@ $common_percent = get_percent($common, $total);
     <!-- Navigation Menu -->
     <nav class="mt-4">
         <a href="index.php" class="nav-link">Communications</a>
-        <a href="backlog.php" class="nav-link">Records</a>
+        <a href="records.php" class="nav-link">Records</a>
     </nav>
 
     <hr style="border: none; height: 2px; background-color: #ccc;">

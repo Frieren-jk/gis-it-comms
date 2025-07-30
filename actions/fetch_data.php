@@ -6,7 +6,7 @@ include '../connection.php';
 
 header('Content-Type: application/json');
 
-$sql = "SELECT * FROM records";
+$sql = "SELECT * FROM communication";
 $result = $conn->query($sql);
 
 $data = [];
@@ -47,20 +47,20 @@ if ($result && $result->num_rows > 0) {
         </ul>
         </div>';
 
-
         $row['actions'] = '
-        <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-secondary action-main-btn" data-id="' . $row['id'] . '" data-action="Update">
-                Update
-            </button>
-            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
-                <span class="visually-hidden">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#" onclick="selectAction(this, \'' . $row['id'] . '\', \'Update\')">Update</a></li>
-                <li><a class="dropdown-item text-danger" href="#" onclick="selectAction(this, \'' . $row['id'] . '\', \'Delete\')">Delete</a></li>
-            </ul>
-        </div>';
+    <div class="btn-group">
+        <button type="button" class="btn btn-sm btn-success action-main-btn" data-id="' . $row['id'] . '" data-action="Update">
+            Update
+        </button>
+        <button type="button" class="btn btn-sm btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+            <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" onclick="selectAction(this, \'' . $row['id'] . '\', \'Update\')">Update</a></li>
+            <li><a class="dropdown-item text-danger" href="#" onclick="selectAction(this, \'' . $row['id'] . '\', \'Delete\')">Delete</a></li>
+        </ul>
+    </div>';
+
 
 
         $data[] = $row;

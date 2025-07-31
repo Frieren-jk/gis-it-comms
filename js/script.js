@@ -54,21 +54,22 @@ $(document).ready(function () {
       { data: "sender" },
       { data: "created_at" },
       {
-        data: "action",
-        render: function (data, type, row) {
-          return `<button class="btn btn-sm btn-primary">View</button>`;
-        }, visible: false
+        data: "actions",
+        orderable: false,
+        searchable: false,
+        visible: false
       }
     ]
   });
 
 
 
+  // Add communication entry
 
   $('#addEntryForm').on('submit', function (e) {
     e.preventDefault();
 
-    const mode = $(this).data('mode') || 'add'; 
+    const mode = $(this).data('mode') || 'add';
     const updateId = $(this).data('update-id');
 
     const id = $('#refInput').val().trim();
@@ -186,6 +187,89 @@ $(document).ready(function () {
       }
     });
   });
+
+  //end
+
+  // add records 
+
+  $('#addRecordForm').on('submit', function (e) {
+    e.preventDefault();
+
+    const mode = $(this).data('mode') || 'add';
+    const updateId = $(this).data('update-id');
+    
+
+    const refNo = $('#refRecordInput').val().trim();
+    const particulars = $('#particularsRecordInput').val().trim();
+    const sender = $('#senderRecordInput').val().trim();
+
+    if (!refNo) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Missing Required Fields',
+        text: 'Reference No.',
+        toast: true,
+        position: 'top-end',
+        iconColor: 'white',
+        customClass: { popup: 'colored-toast' },
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      });
+      return;
+    }
+
+    const formData = $(this).serialize() + (mode === 'update' ? `&id=${updateId}` : '');
+    const url = mode === 'update' ? 'actions/update_backlog.php' : 'actions/add_backlog.php';
+    const successMessage = mode === 'update' ? 'Record updated successfully!' : 'Record added!';
+
+    $.ajax({
+      url,
+      method: 'POST',
+      data: formData,
+      success: function (response) {
+        console.log('Raw Response:', response); // add this line
+        try {
+          response = JSON.parse(response);
+        } catch (e) {
+          Swal.fire('Error', 'Unexpected server response.', 'error');
+          return;
+        }
+        if (response.success) {
+          Swal.fire({
+            icon: 'success',
+            title: successMessage,
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            customClass: { popup: 'colored-toast' }
+          });
+
+          $('#addBacklogModal').modal('hide');
+          $('#addRecordForm')[0].reset();
+          backlogTable.ajax.reload();
+          $('#addRecordForm').removeData('mode').removeData('update-id');
+        } else {
+          let errorMessage = 'Could not process record.';
+          if (response.code === 1062) {
+            errorMessage = 'Reference No. already exists!';
+            $('#refRecordInput').addClass('is-invalid');
+          }
+
+          Swal.fire('Error', response.error || errorMessage, 'error');
+        }
+      },
+      error: function () {
+        Swal.fire('Error', 'Request failed.', 'error');
+      }
+    });
+  });
+
+
+
+
 
 
 
@@ -353,36 +437,56 @@ function selectAction(el, id, action) {
 
 $(document).on('click', '.action-main-btn', function () {
   const id = $(this).data('id');
+
   const action = $(this).data('action');
 
+  const table = $(this).closest('table').attr('id');
+  const dt = $('#' + table).DataTable();
+  const rowData = dt.row($(this).closest('tr')).data();
+
+  // ---------- UPDATE ----------
   if (action === 'Update') {
-    // Get row data from DataTable
-    const rowData = $('#dataTable').DataTable().row($(this).closest('tr')).data();
+    if (table === 'backlogTable') {
+      // Fill #addRecordForm fields
+      
+      $('#addBacklogModalLabel').text('Update Record');
+      $('#addRecordForm button[type="submit"]').text('Update Record');
 
-    // Fill modal fields
-    $('#addEntryModalLabel').text('Update Entry');
-    $('#addEntryForm button[type="submit"]').text('Update Entry');
-    $('#refInput').val(rowData.id);
-    $('#particularsInput').val(rowData.particulars);
-    $('#senderInput').val(rowData.sender);
-    $('#dateReceived').val(rowData.date_received);
-    $('#remarks').val(rowData.remarks);
-    $('#assignToInput').val(rowData.assign_to);
-    $('#dateAssign').val(rowData.date_assign);
-    $('#actionTaken').val(rowData.action_taken);
-    $('#status').val(rowData.status_raw?.trim());
+      $('#refRecordInput').val(rowData.ref_no || '').prop('readonly', true);
+      $('#particularsRecordInput').val(rowData.particulars || '');
+      $('#senderRecordInput').val(rowData.sender || '');
 
-    $('#fileToInput').val(rowData.file_to);
+      $('#addRecordForm').data('mode', 'update');
+      $('#addRecordForm').data('update-id', rowData.ref_no);
 
-    // Store mode info (e.g., update vs add)
-    $('#addEntryForm').data('mode', 'update');
-    $('#addEntryForm').data('update-id', rowData.id);
+      const modal = new bootstrap.Modal(document.getElementById('addBacklogModal'));
+      modal.show();
 
-    // Open modal
-    const modal = new bootstrap.Modal(document.getElementById('addEntryModal'));
-    modal.show();
+    } else {
+      // Fill #addEntryForm fields
+      $('#addEntryModalLabel').text('Update Entry');
+      $('#addEntryForm button[type="submit"]').text('Update Entry');
+
+      $('#refInput').val(rowData.id || '');
+      $('#particularsInput').val(rowData.particulars || '');
+      $('#senderInput').val(rowData.sender || '');
+      $('#dateReceived').val(rowData.date_received || '');
+      $('#remarks').val(rowData.remarks || '');
+      $('#assignToInput').val(rowData.assign_to || '');
+      $('#dateAssign').val(rowData.date_assign || '');
+      $('#actionTaken').val(rowData.action_taken || '');
+      $('#status').val(rowData.status_raw?.trim() || '');
+      $('#fileToInput').val(rowData.file_to || '');
+
+      $('#addEntryForm').data('mode', 'update');
+      $('#addEntryForm').data('update-id', rowData.id);
+
+      const modal = new bootstrap.Modal(document.getElementById('addEntryModal'));
+      modal.show();
+    }
   }
 
+  // ---------- DELETE ----------
   else if (action === 'Delete') {
     Swal.fire({
       title: 'Are you sure?',
@@ -395,8 +499,12 @@ $(document).on('click', '.action-main-btn', function () {
       cancelButtonText: 'Cancel'
     }).then((result) => {
       if (result.isConfirmed) {
-        $.post('actions/delete_entry.php', { id }, function (res) {
-          $('#dataTable').DataTable().ajax.reload(null, false);
+        const deleteUrl = table === 'backlogTable'
+          ? 'actions/delete_backlogs.php'
+          : 'actions/delete_entry.php';
+
+        $.post(deleteUrl, { id }, function (res) {
+          dt.ajax.reload(null, false);
           Swal.fire({
             title: 'Deleted!',
             text: 'Entry has been deleted.',
@@ -426,6 +534,8 @@ $(document).on('click', '.action-main-btn', function () {
     });
   }
 });
+
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -458,3 +568,9 @@ $('#addEntryModal').on('hidden.bs.modal', function () {
 
 
 
+
+$('#addBacklogModal').on('hidden.bs.modal', function () {
+  $('#refRecordInput').val('').prop('readonly', false);
+  $('#particularsRecordInput').val('');
+  $('#senderRecordInput').val('');
+});

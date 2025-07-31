@@ -56,7 +56,7 @@
     <div class="modal fade" id="addBacklogModal" tabindex="-1" aria-labelledby="addBacklogModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
-                <form id="addBacklogForm">
+                <form id="addRecordForm" method="POST">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addBacklogModalLabel">Add New Entry</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -66,15 +66,15 @@
                         <div class="row g-3">
                             <div class="col-md-2">
                                 <label class="form-label">Reference No.</label>
-                                <input type="text" class="form-control" name="id" required>
+                                <input type="text" class="form-control" name="ref_no" id="refRecordInput">
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4">  
                                 <label class="form-label">Particulars</label>
-                                <input type="text" class="form-control" name="particulars" required>
+                                <input type="text" class="form-control" name="particulars" id="particularsRecordInput">
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Sender</label>
-                                <input type="text" class="form-control" name="sender">
+                                <input type="text" class="form-control" name="sender" id="senderRecordInput">
                             </div>
         
                         </div>

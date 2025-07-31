@@ -49,11 +49,10 @@ $(document).ready(function () {
   backlogTable = $('#backlogTable').DataTable({
     ajax: "actions/fetch_backlog.php",
     columns: [
-      { data: "action_id" },
       { data: "ref_no" },
       { data: "particulars" },
       { data: "sender" },
-
+      { data: "created_at" },
       {
         data: "action",
         render: function (data, type, row) {

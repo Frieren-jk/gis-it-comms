@@ -1,7 +1,7 @@
 <?php
 require '../connection.php'; // or adjust path
 
-$sql = "SELECT action_id, ref_no, particulars, sender FROM records";  // adjust table/column names
+$sql = "SELECT  ref_no, particulars, sender, created_at FROM records";  // adjust table/column names
 $result = $conn->query($sql);
 
 $data = [];

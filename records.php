@@ -39,10 +39,10 @@
         <table id="backlogTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>ReferenceNo.</th>
                     <th>Particulars</th>
                     <th>Sender</th>
+                    <th>CreatedAt</th>
                     <th>Action</th>
                 </tr>
             </thead>

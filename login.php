@@ -27,8 +27,7 @@
 
             <!-- Forgot password link -->
             <div style="text-align: right; margin-bottom: 10px;">
-              <a href="forgot-password.html" style="font-size: 0.9rem; color: #0f3c52; text-decoration: none;">Forgot
-                password?</a>
+              
             </div>
 
             <button type="submit">Login</button>

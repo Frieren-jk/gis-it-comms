@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_delete'])) {
         die("Delete failed: " . $stmt->error);
     }
 
-    header("Location: records.php?deleted=1");
+    header("Location: ../records.php?deleted=1");
     exit;
 }
 ?>

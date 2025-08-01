@@ -48,6 +48,14 @@ if ($stmt->num_rows === 1) {
 
     // Replace with password_verify() if using hashed passwords
     if ($password === $db_password) {
+        // Clear guest session if it exists
+        if (isset($_SESSION['guest']) && $_SESSION['guest'] === true) {
+            session_unset(); // Clears all session variables
+            session_destroy(); // Destroys the session
+            session_start(); // Start a new session after destruction
+        }
+
+        // Set login session
         $_SESSION['user_id'] = $user_id;
         $_SESSION['username'] = $username;
 

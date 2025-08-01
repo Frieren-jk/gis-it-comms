@@ -41,6 +41,40 @@ body {
   font-weight: bold;
 }
 
+.sidebar .logout-link {
+  background-color: #dc3545;      /* Bootstrap red */
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.sidebar .logout-link:hover {
+  background-color: #a71d2a;      /* Darker red */
+  color: white;
+}
+
+/* Login button - blue */
+.sidebar .login-link {
+  background-color: #0d6efd;      /* Bootstrap blue */
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.sidebar .login-link:hover {
+  background-color: #084298;      /* Darker blue */
+  color: white;
+}
+
+
 .logo-placeholder {
   height: 100px;
   background-color: #495057;
@@ -199,3 +233,17 @@ body {
   position: relative;
   z-index: 2;
 }
+
+/* login page */
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body, html {
+  height: 100%;
+}
+

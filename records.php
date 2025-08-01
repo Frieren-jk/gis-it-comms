@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+$is_guest = isset($_SESSION['guest']) && $_SESSION['guest'] === true;
+$is_logged_in = isset($_SESSION['user_id']);
+
+if (!$is_guest && !$is_logged_in) {
+    // Not guest, not logged in — redirect to login
+    header("Location: login.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

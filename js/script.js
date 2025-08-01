@@ -196,7 +196,7 @@ $(document).ready(function () {
 
     const mode = $(this).data('mode') || 'add';
     const updateId = $(this).data('update-id');
-    
+
 
     const refNo = $('#refRecordInput').val().trim();
     const particulars = $('#particularsRecordInput').val().trim();
@@ -266,10 +266,42 @@ $(document).ready(function () {
     });
   });
 
+  /* login */
+  $('#loginForm').on('submit', function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: 'actions/process-login.php',
+      method: 'POST',
+      data: $(this).serialize(),
+      dataType: 'json',
+      success: function (response) {
+        if (response.status === 'success') {
+          window.location.href = 'index.php';
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            text: response.message || 'Invalid credentials.'
+          });
+        }
+      },
+      error: function (xhr) {
+        let message = 'Could not contact server or received invalid response.';
+        try {
+          const res = JSON.parse(xhr.responseText);
+          if (res.message) message = res.message;
+        } catch (e) {
+          console.warn('Invalid JSON:', xhr.responseText);
+        }
 
-
-
-
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Error', 
+          text: message
+        });
+      }
+    });
+  });
 
 
   $('#toggleActionsBtn').on('click', function () {
@@ -447,7 +479,7 @@ $(document).on('click', '.action-main-btn', function () {
   if (action === 'Update') {
     if (table === 'backlogTable') {
       // Fill #addRecordForm fields
-      
+
       $('#addBacklogModalLabel').text('Update Record');
       $('#addRecordForm button[type="submit"]').text('Update Record');
 
@@ -575,90 +607,117 @@ $('#addBacklogModal').on('hidden.bs.modal', function () {
 });
 
 // Export & Delete and Export Only modal logic for records.php
-$(document).ready(function() {
-    // Export & Delete button
-    const exportDeleteBtn = document.getElementById('exportDeleteBtn');
-    if (exportDeleteBtn) {
-        exportDeleteBtn.addEventListener('click', function () {
-            const form = document.getElementById('deleteForm');
-            const month = document.getElementById('deleteMonth').value;
-            const year = document.getElementById('deleteYear').value;
+$(document).ready(function () {
+  // Export & Delete button
+  const exportDeleteBtn = document.getElementById('exportDeleteBtn');
+  if (exportDeleteBtn) {
+    exportDeleteBtn.addEventListener('click', function () {
+      const form = document.getElementById('deleteForm');
+      const month = document.getElementById('deleteMonth').value;
+      const year = document.getElementById('deleteYear').value;
 
-            if (!year) {
-                Swal.fire('Missing Fields', 'Please select a year.', 'warning');
-                return;
-            }
+      if (!year) {
+        Swal.fire('Missing Fields', 'Please select a year.', 'warning');
+        return;
+      }
 
-            // First export
-            let url = `actions/delete.php?export=1&year=${year}`;
-            if (month) url += `&month=${month}`;
-            window.open(url, '_blank');
+      // First export
+      let url = `actions/delete.php?export=1&year=${year}`;
+      if (month) url += `&month=${month}`;
+      window.open(url, '_blank');
 
-            // Show Swal for export
-            Swal.fire({
-                icon: 'success',
-                title: 'Exported!',
-                text: 'Records have been exported as CSV.',
-                timer: 2000,
-                showConfirmButton: false
-            });
+      // Show Swal for export
+      Swal.fire({
+        icon: 'success',
+        title: 'Exported!',
+        text: 'Records have been exported as CSV.',
+        timer: 2000,
+        showConfirmButton: false
+      });
 
-            // Then confirm delete
-            Swal.fire({
-                title: 'Confirm Deletion',
-                text: 'Are you sure you want to delete these records?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, Delete',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit(); // Submit the form directly
-                }
-            });
-        });
-    }
-
-    // Export only (from export modal)
-    const exportForm = document.getElementById('exportForm');
-    if (exportForm) {
-        exportForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            let month = document.getElementById('exportMonth').value;
-            const year = document.getElementById('exportYear').value;
-            if (!year) {
-                Swal.fire('Missing Fields', 'Please select a year.', 'warning');
-                return;
-            }
-            let url = `actions/delete.php?export=1&year=${year}`;
-            if (month) url += `&month=${month}`;
-            window.open(url, '_blank');
-            bootstrap.Modal.getInstance(document.getElementById('exportModal')).hide();
-            // Show Swal for export
-            Swal.fire({
-                icon: 'success',
-                title: 'Exported!',
-                text: 'Records have been exported as CSV.',
-                timer: 2000,
-                showConfirmButton: false
-            });
-        });
-    }
-
-    // Show Swal after redirect from delete
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('deleted') === '1') {
-        Swal.fire({
-            icon: 'success',
-            title: 'Exported & Deleted!',
-            text: 'Records have been exported and deleted.',
-            timer: 2500,
-            showConfirmButton: false
-        });
-        // Remove the query param from URL
-        if (window.history.replaceState) {
-            const url = window.location.origin + window.location.pathname;
-            window.history.replaceState({}, document.title, url);
+      // Then confirm delete
+      Swal.fire({
+        title: 'Confirm Deletion',
+        text: 'Are you sure you want to delete these records?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Delete',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          form.submit(); // Submit the form directly
         }
+      });
+    });
+  }
+
+  // Export only (from export modal)
+  const exportForm = document.getElementById('exportForm');
+  if (exportForm) {
+    exportForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      let month = document.getElementById('exportMonth').value;
+      const year = document.getElementById('exportYear').value;
+      if (!year) {
+        Swal.fire('Missing Fields', 'Please select a year.', 'warning');
+        return;
+      }
+      let url = `actions/delete.php?export=1&year=${year}`;
+      if (month) url += `&month=${month}`;
+      window.open(url, '_blank');
+      bootstrap.Modal.getInstance(document.getElementById('exportModal')).hide();
+      // Show Swal for export
+      Swal.fire({
+        icon: 'success',
+        title: 'Exported!',
+        text: 'Records have been exported as CSV.',
+        timer: 2000,
+        showConfirmButton: false
+      });
+    });
+  }
+
+  // Show Swal after redirect from delete
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('deleted') === '1') {
+    Swal.fire({
+      icon: 'success',
+      title: 'Exported & Deleted!',
+      text: 'Records have been exported and deleted.',
+      timer: 2500,
+      showConfirmButton: false
+    });
+    // Remove the query param from URL
+    if (window.history.replaceState) {
+      const url = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, url);
     }
+  }
+});
+
+document.getElementById("logout-btn").addEventListener("click", function (e) {
+  const isGuest = this.dataset.guest === "true";
+
+  if (isGuest) {
+    // Directly logout guest without Swal
+    window.location.href = 'actions/end_guest_session.php';
+    return;
+  }
+
+  e.preventDefault(); // Prevent default link behavior
+
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You will be logged out.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#dc3545',
+    cancelButtonColor: '#6c757d',
+    confirmButtonText: 'Yes, logout',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = 'actions/logout.php';
+    }
+  });
 });

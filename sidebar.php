@@ -1,4 +1,10 @@
 <!-- sidebar.php -->
+
+<?php
+$is_guest = isset($_SESSION['guest']) && $_SESSION['guest'] === true;
+$is_logged_in = isset($_SESSION['user_id']);
+?>
+
 <?php
 require_once 'connection.php'; // adjust path as needed
 
@@ -59,8 +65,18 @@ $common_percent = get_percent($common, $total);
 
     <!-- Navigation Menu -->
     <nav class="mt-4">
+        <?php if (!$is_guest): ?>
         <a href="index.php" class="nav-link">Communications</a>
         <a href="records.php" class="nav-link">Records</a>
+        <?php endif; ?>
+        <?php if ($is_guest): ?>
+            <a href="actions/end_guest_session.php" class="logout-link" id="logout-btn" data-guest="true">End Guest
+                Session</a>
+        <?php elseif ($is_logged_in): ?>
+            <a href="actions/logout.php" class="logout-link" id="logout-btn" data-guest="false">Logout</a>
+        <?php else: ?>
+            <a href="login.php" class="login-link">Login</a>
+        <?php endif; ?>
     </nav>
 
     <hr style="border: none; height: 2px; background-color: #ccc;">

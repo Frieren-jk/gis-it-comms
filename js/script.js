@@ -1,4 +1,3 @@
-
 let table;
 let backlogTable
 let actionsVisible = false;
@@ -573,4 +572,59 @@ $('#addBacklogModal').on('hidden.bs.modal', function () {
   $('#refRecordInput').val('').prop('readonly', false);
   $('#particularsRecordInput').val('');
   $('#senderRecordInput').val('');
+});
+
+// Export & Delete and Export Only modal logic for records.php
+$(document).ready(function() {
+    // Export & Delete button
+    const exportDeleteBtn = document.getElementById('exportDeleteBtn');
+    if (exportDeleteBtn) {
+        exportDeleteBtn.addEventListener('click', function () {
+            const form = document.getElementById('deleteForm');
+            const month = document.getElementById('deleteMonth').value;
+            const year = document.getElementById('deleteYear').value;
+
+            if (!year) {
+                Swal.fire('Missing Fields', 'Please select a year.', 'warning');
+                return;
+            }
+
+            // First export
+            let url = `actions/delete.php?export=1&year=${year}`;
+            if (month) url += `&month=${month}`;
+            window.open(url, '_blank');
+
+            // Then confirm delete
+            Swal.fire({
+                title: 'Confirm Deletion',
+                text: 'Are you sure you want to delete these records?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Delete',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Submit the form directly
+                }
+            });
+        });
+    }
+
+    // Export only (from export modal)
+    const exportForm = document.getElementById('exportForm');
+    if (exportForm) {
+        exportForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let month = document.getElementById('exportMonth').value;
+            const year = document.getElementById('exportYear').value;
+            if (!year) {
+                Swal.fire('Missing Fields', 'Please select a year.', 'warning');
+                return;
+            }
+            let url = `actions/delete.php?export=1&year=${year}`;
+            if (month) url += `&month=${month}`;
+            window.open(url, '_blank');
+            bootstrap.Modal.getInstance(document.getElementById('exportModal')).hide();
+        });
+    }
 });

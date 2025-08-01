@@ -1,4 +1,4 @@
-## Database Information
-
-- Database Name: `gis-it`
-- Primary Table: `comms_records`
+$host = "10.15.31.19";
+$dbname = "gis-comms";
+$username = "remote_user";
+$password = "password1234"; 

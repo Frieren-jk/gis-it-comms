@@ -594,6 +594,15 @@ $(document).ready(function() {
             if (month) url += `&month=${month}`;
             window.open(url, '_blank');
 
+            // Show Swal for export
+            Swal.fire({
+                icon: 'success',
+                title: 'Exported!',
+                text: 'Records have been exported as CSV.',
+                timer: 2000,
+                showConfirmButton: false
+            });
+
             // Then confirm delete
             Swal.fire({
                 title: 'Confirm Deletion',
@@ -625,6 +634,31 @@ $(document).ready(function() {
             if (month) url += `&month=${month}`;
             window.open(url, '_blank');
             bootstrap.Modal.getInstance(document.getElementById('exportModal')).hide();
+            // Show Swal for export
+            Swal.fire({
+                icon: 'success',
+                title: 'Exported!',
+                text: 'Records have been exported as CSV.',
+                timer: 2000,
+                showConfirmButton: false
+            });
         });
+    }
+
+    // Show Swal after redirect from delete
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('deleted') === '1') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Exported & Deleted!',
+            text: 'Records have been exported and deleted.',
+            timer: 2500,
+            showConfirmButton: false
+        });
+        // Remove the query param from URL
+        if (window.history.replaceState) {
+            const url = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, url);
+        }
     }
 });

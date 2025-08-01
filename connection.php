@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$dbname = "gis-it";
+$dbname = "gis-comms";
 $username = "root";
-$password = "root"; 
+$password = ""; 
 
 $conn = new mysqli($host, $username, $password, $dbname);
 

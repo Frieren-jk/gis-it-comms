@@ -1,5 +1,5 @@
 <?php
-require_once 'connection.php';
+require_once '../connection.php';
 
 // Record Count for preview (AJAX)
 if (isset($_POST['preview'])) {

@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+// Prevent caching so back button doesn't show protected pages
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
+header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+
 $is_guest = isset($_SESSION['guest']) && $_SESSION['guest'] === true;
 $is_logged_in = isset($_SESSION['user_id']);
 

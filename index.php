@@ -40,8 +40,21 @@ if (!$is_guest && !$is_logged_in) {
     <!-- Sidebar -->
     <?php include 'sidebar.php'; ?>
 
+
+
+
     <!-- Main content -->
     <div class="main-content">
+        <div id="hover-preview" class="mb-4" style="display: none;">
+            <div class="card">
+                
+                <div class="card-body text-center">
+                    <img id="preview-img" src="" alt="Preview" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+
+
         <?php if (!$is_guest): ?>
             <h2 class="mb-4">Communication Data</h2>
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -73,6 +86,27 @@ if (!$is_guest && !$is_logged_in) {
 
                 </tbody>
             </table>
+
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="previewModalLabel">Dashboard Preview</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <p>This will open the Quezon City UGIS Dashboard in a new tab.</p>
+                            <a href="#" target="_blank" class="btn btn-primary" id="goToDashboard">Go to Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
 
             <div class="modal fade" id="addEntryModal" tabindex="-1" aria-labelledby="addEntryModalLabel"
@@ -172,6 +206,7 @@ if (!$is_guest && !$is_logged_in) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Custom JS -->
     <script src="js/script.js"></script>
+    
 
 </body>
 

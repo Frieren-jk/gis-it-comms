@@ -721,3 +721,25 @@ document.getElementById("logout-btn").addEventListener("click", function (e) {
     }
   });
 });
+
+
+//preview img guest
+
+document.addEventListener('DOMContentLoaded', function () {
+            const previewTriggers = document.querySelectorAll('.preview-trigger');
+            const previewBox = document.getElementById('hover-preview');
+            const previewImg = document.getElementById('preview-img');
+
+            previewTriggers.forEach(link => {
+                link.addEventListener('mouseenter', function () {
+                    const imgSrc = this.getAttribute('data-img');
+                    previewImg.src = imgSrc;
+                    previewBox.style.display = 'block';
+                });
+
+                link.addEventListener('mouseleave', function () {
+                    previewBox.style.display = 'none';
+                    previewImg.src = '';
+                });
+            });
+        });

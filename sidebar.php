@@ -60,14 +60,19 @@ $common_percent = get_percent($common, $total);
 <div class="sidebar d-flex flex-column">
     <div class="logo-container">
         <img src="img/logo.png" alt="Logo" class="logo-img">
+         <?php if (!$is_guest): ?>
         <div class="logo-label">GIS-IT COMMS</div>
+         <?php endif; ?>
+         <?php if ($is_guest): ?>
+        <div class="logo-label">GIS-IT Dashboard</div>
+         <?php endif; ?>
     </div>
 
     <!-- Navigation Menu -->
     <nav class="mt-4">
         <?php if (!$is_guest): ?>
-        <a href="index.php" class="nav-link">Communications</a>
-        <a href="records.php" class="nav-link">Records</a>
+            <a href="index.php" class="nav-link">Communications</a>
+            <a href="records.php" class="nav-link">Records</a>
         <?php endif; ?>
         <?php if ($is_guest): ?>
             <a href="actions/end_guest_session.php" class="logout-link" id="logout-btn" data-guest="true">End Guest
@@ -80,54 +85,74 @@ $common_percent = get_percent($common, $total);
     </nav>
 
     <hr style="border: none; height: 2px; background-color: #ccc;">
+    <?php if (!$is_guest): ?>
+        <!-- Circles -->
+        <div id="sidebar-comm-stats">
+            <div class="stat-box">
+                <div class="label">TOTAL</div>
+                <div class="value-box" id="total-comms"><?php echo $total; ?></div>
+            </div>
 
-    <!-- Circles -->
-    <div id="sidebar-comm-stats">
-        <div class="stat-box">
-            <div class="label">TOTAL</div>
-            <div class="value-box" id="total-comms"><?php echo $total; ?></div>
-        </div>
-
-        <div class="stat-box">
-            <div class="label">COMPLETE</div>
-            <div class="value-box">
-                <div class="circle-box complete" id="complete-circle"
-                    style="background-image: conic-gradient(#28a745 <?php echo $complete_percent; ?>%, #444 <?php echo $complete_percent; ?>%);">
-                    <div
-                        style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
+            <div class="stat-box">
+                <div class="label">COMPLETE</div>
+                <div class="value-box">
+                    <div class="circle-box complete" id="complete-circle"
+                        style="background-image: conic-gradient(#28a745 <?php echo $complete_percent; ?>%, #444 <?php echo $complete_percent; ?>%);">
+                        <div
+                            style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
+                        </div>
+                        <div class="circle-value" id="complete-val"><?php echo $completed; ?></div>
+                        <div class="circle-ratio" id="complete-ratio"><?php echo "$completed/$total"; ?></div>
                     </div>
-                    <div class="circle-value" id="complete-val"><?php echo $completed; ?></div>
-                    <div class="circle-ratio" id="complete-ratio"><?php echo "$completed/$total"; ?></div>
+                </div>
+            </div>
+
+            <div class="stat-box">
+                <div class="label">PENDING</div>
+                <div class="value-box">
+                    <div class="sub-label">Priority</div>
+                    <!-- PRIORITY CIRCLE -->
+                    <div class="circle-box pending priority" id="priority-circle"
+                        style="background-image: conic-gradient(#dc3545 <?php echo $priority_percent; ?>%, #444 <?php echo $priority_percent; ?>%);">
+                        <div
+                            style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
+                        </div>
+                        <div class="circle-value" id="priority-val"><?php echo $priority; ?></div>
+                        <div class="circle-ratio" id="priority-ratio"><?php echo "$priority/$total"; ?></div>
+                    </div>
+
+                    <div class="sub-label">Common</div>
+                    <!-- COMMON CIRCLE -->
+                    <div class="circle-box pending common" id="common-circle"
+                        style="background-image: conic-gradient(#ffc107 <?php echo $common_percent; ?>%, #444 <?php echo $common_percent; ?>%);">
+                        <div
+                            style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
+                        </div>
+                        <div class="circle-value" id="common-val"><?php echo $common; ?></div>
+                        <div class="circle-ratio" id="common-ratio"><?php echo "$common/$total"; ?></div>
+                    </div>
                 </div>
             </div>
         </div>
+    <?php endif; ?>
 
-        <div class="stat-box">
-            <div class="label">PENDING</div>
-            <div class="value-box">
-                <div class="sub-label">Priority</div>
-                <!-- PRIORITY CIRCLE -->
-                <div class="circle-box pending priority" id="priority-circle"
-                    style="background-image: conic-gradient(#dc3545 <?php echo $priority_percent; ?>%, #444 <?php echo $priority_percent; ?>%);">
-                    <div
-                        style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
-                    </div>
-                    <div class="circle-value" id="priority-val"><?php echo $priority; ?></div>
-                    <div class="circle-ratio" id="priority-ratio"><?php echo "$priority/$total"; ?></div>
-                </div>
+    <?php if ($is_guest): ?>
 
-                <div class="sub-label">Common</div>
-                <!-- COMMON CIRCLE -->
-                <div class="circle-box pending common" id="common-circle"
-                    style="background-image: conic-gradient(#ffc107 <?php echo $common_percent; ?>%, #444 <?php echo $common_percent; ?>%);">
-                    <div
-                        style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
-                    </div>
-                    <div class="circle-value" id="common-val"><?php echo $common; ?></div>
-                    <div class="circle-ratio" id="common-ratio"><?php echo "$common/$total"; ?></div>
-                </div>
-            </div>
+
+        <div class="extra-links mt-3 px-3">
+            <a href="https://ugis.quezoncitylgu.gov/arcgis/apps/opsdashboard/index.html#/6ac10e696bb04f22a6cc8ee93a228518"
+                class="nav-link preview-trigger" target="_blank" data-img="img/Weekly.png">WEEKLY ACCOMPLISHMENT DASHBOARD</a>
+
+            <a href="https://ugis.quezoncitylgu.gov/arcgis/apps/opsdashboard/index.html#/aff18d15e361460a9c5203f1e93d2dfc" class="nav-link preview-trigger" target="_blank" data-img="img/Anti-Dangling.png">ANTI-DANGLING
+                WEEKLY ACCOMPLISHED DASHBOARD</a>
+
+            <a href="https://ugis.quezoncitylgu.gov/arcgis/apps/opsdashboard/index.html#/0d83b18a5394436bb3f7d9f47d0ebd96" class="nav-link preview-trigger" target="_blank" data-img="img/building.png">BUILDING
+                MAINTENANCE WEEKLY ACCOMPLISHED DASHBOARD</a>
+
+            <a href="https://ugis.quezoncitylgu.gov/arcgis/apps/opsdashboard/index.html#/ac1347d4660d492ca440bf825b8587b6" class="nav-link preview-trigger" target="_blank" data-img="img/lane.png">LANE
+                MARKINGS AND FABRICATION WEEKLY ACCOMPLISHED DASHBOARD</a>
         </div>
-    </div>
+
+    <?php endif; ?>
 
 </div>

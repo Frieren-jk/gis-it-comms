@@ -1,8 +1,14 @@
 <?php
 session_start();
+// Prevent browser from caching login page
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+header("Pragma: no-cache"); // HTTP 1.0
+header("Expires: 0"); // Proxies
+
 require '../connection.php';
 
 header('Content-Type: application/json');
+
 
 // Allow only POST requests
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {

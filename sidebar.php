@@ -58,14 +58,14 @@ $common_percent = get_percent($common, $total);
 ?>
 
 <div class="sidebar d-flex flex-column">
-    <div class="logo-container">
-        <img src="img/logo.png" alt="Logo" class="logo-img">
-         <?php if (!$is_guest): ?>
-        <div class="logo-label">GIS-IT COMMS</div>
-         <?php endif; ?>
-         <?php if ($is_guest): ?>
-        <div class="logo-label">GIS-IT Dashboard</div>
-         <?php endif; ?>
+    <div class="logo-container" id="logo-container">
+        <img src="img/logo.png" alt="Logo" class="logo-img" id="logo-img">
+        <?php if (!$is_guest): ?>
+            <div class="logo-label">GIS-IT COMMS</div>
+        <?php endif; ?>
+        <?php if ($is_guest): ?>
+            <div class="logo-label">GIS-IT Dashboard</div>
+        <?php endif; ?>
     </div>
 
     <!-- Navigation Menu -->
@@ -141,15 +141,19 @@ $common_percent = get_percent($common, $total);
 
         <div class="extra-links mt-3 px-3">
             <a href="https://ugis.quezoncitylgu.gov/arcgis/apps/opsdashboard/index.html#/6ac10e696bb04f22a6cc8ee93a228518"
-                class="nav-link preview-trigger" target="_blank" data-img="img/Weekly.png">WEEKLY ACCOMPLISHMENT DASHBOARD</a>
+                class="nav-link preview-trigger" target="_blank" data-img="img/Weekly.png">WEEKLY ACCOMPLISHMENT
+                DASHBOARD</a>
 
-            <a href="https://ugis.quezoncitylgu.gov/arcgis/apps/opsdashboard/index.html#/aff18d15e361460a9c5203f1e93d2dfc" class="nav-link preview-trigger" target="_blank" data-img="img/Anti-Dangling.png">ANTI-DANGLING
+            <a href="https://ugis.quezoncitylgu.gov/arcgis/apps/opsdashboard/index.html#/aff18d15e361460a9c5203f1e93d2dfc"
+                class="nav-link preview-trigger" target="_blank" data-img="img/Anti-Dangling.png">ANTI-DANGLING
                 WEEKLY ACCOMPLISHED DASHBOARD</a>
 
-            <a href="https://ugis.quezoncitylgu.gov/arcgis/apps/opsdashboard/index.html#/0d83b18a5394436bb3f7d9f47d0ebd96" class="nav-link preview-trigger" target="_blank" data-img="img/building.png">BUILDING
+            <a href="https://ugis.quezoncitylgu.gov/arcgis/apps/opsdashboard/index.html#/0d83b18a5394436bb3f7d9f47d0ebd96"
+                class="nav-link preview-trigger" target="_blank" data-img="img/building.png">BUILDING
                 MAINTENANCE WEEKLY ACCOMPLISHED DASHBOARD</a>
 
-            <a href="https://ugis.quezoncitylgu.gov/arcgis/apps/opsdashboard/index.html#/ac1347d4660d492ca440bf825b8587b6" class="nav-link preview-trigger" target="_blank" data-img="img/lane.png">LANE
+            <a href="https://ugis.quezoncitylgu.gov/arcgis/apps/opsdashboard/index.html#/ac1347d4660d492ca440bf825b8587b6"
+                class="nav-link preview-trigger" target="_blank" data-img="img/lane.png">LANE
                 MARKINGS AND FABRICATION WEEKLY ACCOMPLISHED DASHBOARD</a>
         </div>
 

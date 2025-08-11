@@ -234,16 +234,6 @@ body {
   z-index: 2;
 }
 
-/* login page */
-/* Reset some default styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
 
-body, html {
-  height: 100%;
-}
+
 

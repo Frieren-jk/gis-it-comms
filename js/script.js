@@ -1,6 +1,7 @@
 let table;
 let backlogTable
 let actionsVisible = false;
+let lastDataHash = '';
 
 $(document).ready(function () {
 
@@ -296,7 +297,7 @@ $(document).ready(function () {
 
         Swal.fire({
           icon: 'error',
-          title: 'Login Error', 
+          title: 'Login Error',
           text: message
         });
       }
@@ -416,12 +417,58 @@ $(document).ready(function () {
     });
   }
 
+function updateDataTable(table, url) {
+  $.ajax({
+    url: url,
+    method: 'GET',
+    dataType: 'json',
+    success: function (response) {
+      if (!response.data) return;
 
-  // Call on load and every 5 seconds
+      const existingData = table.rows().data().toArray();
+      const newData = response.data;
+
+      let changed = false;
+
+      // Loop through new data
+      newData.forEach((newRow, index) => {
+        const existingRow = existingData.find(r => r.id == newRow.id);
+        if (!existingRow || JSON.stringify(existingRow) !== JSON.stringify(newRow)) {
+          changed = true;
+
+          // Update row by ID if exists
+          const rowIndex = table.rows().eq(0).filter((i) => {
+            return table.row(i).data().id == newRow.id;
+          });
+
+          if (rowIndex.length > 0) {
+            table.row(rowIndex[0]).data(newRow);
+          } else {
+            table.row.add(newRow); // If new row, add it
+          }
+        }
+      });
+
+      if (changed) {
+        table.draw(false);
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error(`Failed to fetch ${url}`, error);
+    }
+  });
+}
+
+ 
   updateSidebarStats();
-  setInterval(updateSidebarStats, 100);
+  setInterval(updateSidebarStats, 10000);
 
-  //end 
+ setInterval(() => {
+  updateDataTable(table, 'actions/fetch_data.php');
+ 
+}, 10000);
+
+  
 });
 
 
@@ -726,20 +773,40 @@ document.getElementById("logout-btn").addEventListener("click", function (e) {
 //preview img guest
 
 document.addEventListener('DOMContentLoaded', function () {
-            const previewTriggers = document.querySelectorAll('.preview-trigger');
-            const previewBox = document.getElementById('hover-preview');
-            const previewImg = document.getElementById('preview-img');
+  const previewTriggers = document.querySelectorAll('.preview-trigger');
+  const previewBox = document.getElementById('hover-preview');
+  const previewImg = document.getElementById('preview-img');
 
-            previewTriggers.forEach(link => {
-                link.addEventListener('mouseenter', function () {
-                    const imgSrc = this.getAttribute('data-img');
-                    previewImg.src = imgSrc;
-                    previewBox.style.display = 'block';
-                });
+  previewTriggers.forEach(link => {
+    link.addEventListener('mouseenter', function () {
+      const imgSrc = this.getAttribute('data-img');
+      previewImg.src = imgSrc;
+      previewBox.style.display = 'block';
+    });
 
-                link.addEventListener('mouseleave', function () {
-                    previewBox.style.display = 'none';
-                    previewImg.src = '';
-                });
-            });
-        });
+    link.addEventListener('mouseleave', function () {
+      previewBox.style.display = 'none';
+      previewImg.src = '';
+    });
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  let clickCount = 0;
+  const logo = document.getElementById("logo-img");
+  const popup = document.getElementById("secret-popup");
+  const closeBtn = document.getElementById("close-popup");
+
+  logo.addEventListener("click", () => {
+    clickCount++;
+    if (clickCount >= 10) {
+      popup.style.display = "block";
+      clickCount = 0;
+    }
+  });
+
+  closeBtn.addEventListener("click", () => {
+    popup.style.display = "none";
+  });
+});

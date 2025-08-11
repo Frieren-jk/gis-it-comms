@@ -47,12 +47,26 @@ if (!$is_guest && !$is_logged_in) {
     <div class="main-content">
         <div id="hover-preview" class="mb-4" style="display: none;">
             <div class="card">
-                
+
                 <div class="card-body text-center">
                     <img id="preview-img" src="" alt="Preview" class="img-fluid rounded shadow">
                 </div>
             </div>
         </div>
+
+        
+        <div id="secret-popup"
+            style="display:none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; background-color: rgba(0,0,0,0.9);">
+
+            <button id="close-popup"
+                style="position: absolute; top: 20px; right: 30px; background: none; border: none; color: #fff; font-size: 30px; cursor: pointer; z-index: 10000;">✕</button>
+
+            <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                <img src="img/ojt.png" alt="Secret Image"
+                    style="max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 10px;">
+            </div>
+        </div>
+
 
 
         <?php if (!$is_guest): ?>
@@ -194,6 +208,8 @@ if (!$is_guest && !$is_logged_in) {
                 </div>
             </div>
         <?php endif; ?>
+
+
     </div>
 
     <!-- jQuery -->
@@ -206,7 +222,7 @@ if (!$is_guest && !$is_logged_in) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Custom JS -->
     <script src="js/script.js"></script>
-    
+
 
 </body>
 

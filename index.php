@@ -69,7 +69,7 @@ if (!$is_guest && !$is_logged_in) {
 
 
 
-        <?php if (!$is_guest): ?>
+        
             <h2 class="mb-4">Communication Data</h2>
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addEntryModal">
@@ -207,7 +207,7 @@ if (!$is_guest && !$is_logged_in) {
                     </div>
                 </div>
             </div>
-        <?php endif; ?>
+       
 
 
     </div>

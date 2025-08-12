@@ -28,10 +28,7 @@
            
 
             <button type="submit">Login</button>
-            <div style="text-align: center; margin-top: 15px;">
-              <span style="font-size: 0.9rem; color: #185474">
-                <a href="actions/guest.php" style="color: #0f3c52;">Continue as Guest</a></span>
-            </div>
+           
           </form>
         </div>
       </div>

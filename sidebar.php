@@ -1,7 +1,6 @@
 <!-- sidebar.php -->
 
 <?php
-$is_guest = isset($_SESSION['guest']) && $_SESSION['guest'] === true;
 $is_logged_in = isset($_SESSION['user_id']);
 ?>
 
@@ -65,72 +64,58 @@ $common_percent = get_percent($common, $total);
 
     <!-- Navigation Menu -->
     <nav class="mt-4">
-        <?php if (!$is_guest): ?>
-            <a href="index.php" class="nav-link">Communications</a>
-            <a href="records.php" class="nav-link">Records</a>
-        <?php endif; ?>
-        <?php if ($is_guest): ?>
-            <a href="actions/end_guest_session.php" class="logout-link" id="logout-btn" data-guest="true">End Guest
-                Session</a>
-        <?php elseif ($is_logged_in): ?>
-            <a href="actions/logout.php" class="logout-link" id="logout-btn" data-guest="false">Logout</a>
-        <?php else: ?>
-            <a href="login.php" class="login-link">Login</a>
-        <?php endif; ?>
+        <a href="index.php" class="nav-link">Communications</a>
+        <a href="records.php" class="nav-link">Records</a>
+        <a href="actions/logout.php" class="logout-link" id="logout-btn" data-guest="false">Logout</a>
     </nav>
 
     <hr style="border: none; height: 2px; background-color: #ccc;">
-    <?php if (!$is_guest): ?>
-        <!-- Circles -->
-        <div id="sidebar-comm-stats">
-            <div class="stat-box">
-                <div class="label">TOTAL</div>
-                <div class="value-box" id="total-comms"><?php echo $total; ?></div>
-            </div>
+    <!-- Circles -->
+    <div id="sidebar-comm-stats">
+        <div class="stat-box">
+            <div class="label">TOTAL</div>
+            <div class="value-box" id="total-comms"><?php echo $total; ?></div>
+        </div>
 
-            <div class="stat-box">
-                <div class="label">COMPLETE</div>
-                <div class="value-box">
-                    <div class="circle-box complete" id="complete-circle"
-                        style="background-image: conic-gradient(#28a745 <?php echo $complete_percent; ?>%, #444 <?php echo $complete_percent; ?>%);">
-                        <div
-                            style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
-                        </div>
-                        <div class="circle-value" id="complete-val"><?php echo $completed; ?></div>
-                        <div class="circle-ratio" id="complete-ratio"><?php echo "$completed/$total"; ?></div>
+        <div class="stat-box">
+            <div class="label">COMPLETE</div>
+            <div class="value-box">
+                <div class="circle-box complete" id="complete-circle"
+                    style="background-image: conic-gradient(#28a745 <?php echo $complete_percent; ?>%, #444 <?php echo $complete_percent; ?>%);">
+                    <div
+                        style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
                     </div>
-                </div>
-            </div>
-
-            <div class="stat-box">
-                <div class="label">PENDING</div>
-                <div class="value-box">
-                    <div class="sub-label">Priority</div>
-                    <!-- PRIORITY CIRCLE -->
-                    <div class="circle-box pending priority" id="priority-circle"
-                        style="background-image: conic-gradient(#dc3545 <?php echo $priority_percent; ?>%, #444 <?php echo $priority_percent; ?>%);">
-                        <div
-                            style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
-                        </div>
-                        <div class="circle-value" id="priority-val"><?php echo $priority; ?></div>
-                        <div class="circle-ratio" id="priority-ratio"><?php echo "$priority/$total"; ?></div>
-                    </div>
-
-                    <div class="sub-label">Common</div>
-                    <!-- COMMON CIRCLE -->
-                    <div class="circle-box pending common" id="common-circle"
-                        style="background-image: conic-gradient(#ffc107 <?php echo $common_percent; ?>%, #444 <?php echo $common_percent; ?>%);">
-                        <div
-                            style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
-                        </div>
-                        <div class="circle-value" id="common-val"><?php echo $common; ?></div>
-                        <div class="circle-ratio" id="common-ratio"><?php echo "$common/$total"; ?></div>
-                    </div>
+                    <div class="circle-value" id="complete-val"><?php echo $completed; ?></div>
+                    <div class="circle-ratio" id="complete-ratio"><?php echo "$completed/$total"; ?></div>
                 </div>
             </div>
         </div>
-    <?php endif; ?>
 
+        <div class="stat-box">
+            <div class="label">PENDING</div>
+            <div class="value-box">
+                <div class="sub-label">Priority</div>
+                <!-- PRIORITY CIRCLE -->
+                <div class="circle-box pending priority" id="priority-circle"
+                    style="background-image: conic-gradient(#dc3545 <?php echo $priority_percent; ?>%, #444 <?php echo $priority_percent; ?>%);">
+                    <div
+                        style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
+                    </div>
+                    <div class="circle-value" id="priority-val"><?php echo $priority; ?></div>
+                    <div class="circle-ratio" id="priority-ratio"><?php echo "$priority/$total"; ?></div>
+                </div>
 
-
+                <div class="sub-label">Common</div>
+                <!-- COMMON CIRCLE -->
+                <div class="circle-box pending common" id="common-circle"
+                    style="background-image: conic-gradient(#ffc107 <?php echo $common_percent; ?>%, #444 <?php echo $common_percent; ?>%);">
+                    <div
+                        style="position: absolute; width: 80%; height: 80%; background-color: #222; border-radius: 50%; z-index: 1;">
+                    </div>
+                    <div class="circle-value" id="common-val"><?php echo $common; ?></div>
+                    <div class="circle-ratio" id="common-ratio"><?php echo "$common/$total"; ?></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

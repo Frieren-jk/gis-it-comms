@@ -1,16 +1,12 @@
 <?php
 session_start();
-
-// Prevent caching so back button doesn't show protected pages
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Pragma: no-cache");
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 
-$is_guest = isset($_SESSION['guest']) && $_SESSION['guest'] === true;
 $is_logged_in = isset($_SESSION['user_id']);
 
-if (!$is_guest && !$is_logged_in) {
-    // Not guest, not logged in — redirect to login
+if (!$is_logged_in) {
     header("Location: login.php");
     exit;
 }
@@ -44,7 +40,6 @@ if (!$is_guest && !$is_logged_in) {
     <!-- Main content -->
     <div class="main-content">
         <h2 class="mb-4">Records</h2>
-
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div class="d-flex gap-2">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBacklogModal">
@@ -63,41 +58,41 @@ if (!$is_guest && !$is_logged_in) {
         </div>
 
         <!-- Modal: Add Entry -->
-    <div class="modal fade" id="addBacklogModal" tabindex="-1" aria-labelledby="addBacklogModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <form id="addRecordForm" method="POST">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addBacklogModalLabel">Add New Entry</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="row g-3">
-                            <div class="col-md-2">
-                                <label class="form-label">Reference No.</label>
-                                <input type="text" class="form-control" name="ref_no" id="refRecordInput">
-                            </div>
-                            <div class="col-md-4">  
-                                <label class="form-label">Particulars</label>
-                                <input type="text" class="form-control" name="particulars" id="particularsRecordInput">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Sender</label>
-                                <input type="text" class="form-control" name="sender" id="senderRecordInput">
-                            </div>
-        
+        <div class="modal fade" id="addBacklogModal" tabindex="-1" aria-labelledby="addBacklogModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <form id="addRecordForm" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addBacklogModalLabel">Add New Entry</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Add Entry</button>
-                    </div>
-                </form>
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <div class="col-md-2">
+                                    <label class="form-label">Reference No.</label>
+                                    <input type="text" class="form-control" name="ref_no" id="refRecordInput">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Particulars</label>
+                                    <input type="text" class="form-control" name="particulars" id="particularsRecordInput">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Sender</label>
+                                    <input type="text" class="form-control" name="sender" id="senderRecordInput">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Add Entry</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
         <!-- Modal: Delete Records -->
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -197,7 +192,7 @@ if (!$is_guest && !$is_logged_in) {
                 </tr>
             </thead>
             <tbody>
-             
+
             </tbody>
         </table>
     </div>
